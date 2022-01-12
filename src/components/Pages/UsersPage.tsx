@@ -1,8 +1,8 @@
 import React, {FC, useEffect, useState} from 'react';
-import {ITodo, IUser} from "../types/types";
+import {ITodo, IUser} from "../../types/types";
 import axios from "axios";
-import List from "./UI/Out/List";
-import UserItem from "./UserItem";
+import List from "../UI/Out/List";
+import UserItem from "../UserItem";
 
 const UsersPage:FC = () => {
     const [users, setUsers] = useState<IUser[]>([])

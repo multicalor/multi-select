@@ -1,14 +1,9 @@
 import React, {ChangeEvent, FC, MouseEvent, useState} from 'react';
 import {IParents, ISelect} from "../../../../types/types";
-import UserItem from "../../../UserItem";
 import List from "../../Out/List";
-import SelectList from "./SelectList";
-import MultiOption from "./MultiOption";
+import OptionList from "./OptionList";
+import Option from "./Option";
 
-export enum SelectVariant {
-    outlined ='outlined',
-    primary='primary'
-}
 
 interface SelectProps {
     initSelects?: IParents
@@ -23,7 +18,7 @@ const initialOption: IParents = {
 
 
 
-const MultiSelect: FC<SelectProps> = (
+const OptionSelect: FC<SelectProps> = (
     {
         initSelects,
         children,
@@ -31,8 +26,16 @@ const MultiSelect: FC<SelectProps> = (
     const [options, setOptions] = useState<IParents>(initialOption)
     const [selected, setSelected] = useState(['root'])
 
-    const clickHandler = (e: MouseEvent <HTMLButtonElement>) => {
+    const clickHandler = (e: MouseEvent <HTMLDivElement>|MouseEvent <HTMLButtonElement>) => {
         e.preventDefault()
+        console.log('fgfhj',e.target)
+        // const value:string = e.target.datatype
+        // const id:number = +e.currentTarget.id
+        // if(selected.length-1 > id){
+        //     setSelected([...[...selected].slice(0, id+1), value])
+        // } else {
+        //     setSelected([...selected, value])
+        // }
     }
 
     const changeHandler = (e:ChangeEvent<HTMLSelectElement>) => {
@@ -49,20 +52,18 @@ const MultiSelect: FC<SelectProps> = (
     return (
         <div>
             {selected.map((category, index)=>(
-                <SelectList
-                    onChange={changeHandler}
+                <OptionList
+                    onClick={clickHandler}
                     items={options[category]?.options}
                     id={index}
                     key={index+'select-key'}
                     renderItem={(item) =>
-                        options[category]?.options?
-                        <MultiOption
+                        <Option
                             option={item}
                             key={++index+'option-key'}
                             selected={selected}
                             setSelected={setSelected}/>
-                            : <button> Save </button>
-                }></SelectList>
+                }></OptionList>
              ))}
 
             <button onClick={clickHandler}>Click me</button>
@@ -72,8 +73,4 @@ const MultiSelect: FC<SelectProps> = (
 };
 
 
-export default MultiSelect;
-//
-// style={{width, height, border: variant === SelectVariant.outlined?'1px solid gray':'none',
-//     background: variant === SelectVariant.primary? 'lightblue': ''
-// }}
+export default OptionSelect;

@@ -1,8 +1,8 @@
 import React, {FC, useEffect, useState} from 'react';
-import {ITodo, IUser} from "../types/types";
+import {ITodo, IUser} from "../../types/types";
 import axios from "axios";
-import List from "./UI/Out/List";
-import TodoItem from "./TdoItem";
+import List from "../UI/Out/List";
+import TodoItem from "../TdoItem";
 
 const TodosPage:FC = ({children}) => {
     const [todos, setTodos] = useState<ITodo[]>([])
